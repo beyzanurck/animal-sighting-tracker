@@ -84,6 +84,7 @@ function App() {
   return (
     <div className="App">
       <h1>Animal Sighting Tracker</h1>
+
       <table className="wildlife-table">
         <thead>
           <tr>
@@ -103,6 +104,17 @@ function App() {
           ))}
         </tbody>
       </table>
+
+      <h4> see only the table of </h4>
+
+      <div className='buttons'>
+
+        <button>Species</button>
+        <button>Individuals</button>
+        <button>Sightings</button>
+
+      </div>
+
     </div>
   )
 }
