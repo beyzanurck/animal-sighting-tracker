@@ -1,8 +1,12 @@
 import './App.css'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 
 function App() {
+
+  const [species, setSpecies] = useState([]);
+  const [individuals, setIndividuals] = useState([]);
+  const [sightings, setSightings] = useState([]);
 
   async function getSpecies() {
     try {
@@ -13,8 +17,8 @@ function App() {
       }
 
       const allSpecies = await response.json();
-      console.log(allSpecies)
-      
+      setSpecies(allSpecies);
+
     } catch (error) {
       console.log(error.message);
     }
@@ -29,7 +33,7 @@ function App() {
       }
 
       const allIndividuals = await response.json();
-      console.log(allIndividuals)
+      setIndividuals(allIndividuals)
 
     } catch (error) {
       console.log(error.message);
@@ -45,18 +49,26 @@ function App() {
       }
 
       const allSightings = await response.json();
-      console.log(allSightings)
+      setSightings(allSightings)
 
     } catch (error) {
       console.log(error.message);
     }
   }
 
-  useEffect(() => {getSpecies(), getIndividuals(), getSightings()}, []);
+  useEffect(() => {
+    getSpecies();
+    getIndividuals();
+    getSightings();
+  }, []);
 
   return (
     <div className="App">
       <h1>Hello</h1>
+
+      <p> {species.length > 0 ? species[0]["common_name"] : ` `} </p>
+      <p> {individuals.length > 0 ? individuals[0]["nickname"] : ` `} </p>
+      <p> {sightings.length > 0 ? sightings[0]["created_at"] : ` `} </p>
 
     </div>
   )
