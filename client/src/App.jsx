@@ -110,6 +110,18 @@ function App() {
       <IndividualsPopup show={show.individuals} onClose={() => handleClose('individuals')}/>
       <SightingsPopup show={show.sightings} onClose={() => handleClose('sightings')}/>
 
+      <h4> add new </h4>
+
+      <div className='buttons'>
+
+        <button >Species</button>
+        <button >Individuals</button>
+        <button >Sightings</button>
+
+      </div>
+
+
+
     </div>
   )
 }
