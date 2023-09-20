@@ -1,30 +1,19 @@
 import './App.css'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
 import WildlifeObservations from './components/WildlifeObservations';
+import Species from './components/Species';
 
 
 function App() {
 
-  const [species, setSpecies] = useState([]);
   const [individuals, setIndividuals] = useState([]);
   const [sightings, setSightings] = useState([]);
   const [observation, setObservation] = useState([]);
 
-  async function getSpecies() {
-    try {
-      const response = await fetch('http://localhost:3000/species');
-
-      if(!response.ok) {
-        throw new Error('response was not ok');
-      }
-
-      const allSpecies = await response.json();
-      setSpecies(allSpecies);
-
-    } catch (error) {
-      console.log(error.message);
-    }
-  }
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   async function getIndividuals() {
     try {
@@ -75,11 +64,12 @@ function App() {
   }
 
   useEffect(() => {
-    getSpecies();
     getIndividuals();
     getSightings();
     ObserveWildlife();
   }, []);
+
+  
 
   return (
     <div className="App">
@@ -109,11 +99,13 @@ function App() {
 
       <div className='buttons'>
 
-        <button>Species</button>
+        <button onClick={handleShow}>Species</button>
         <button>Individuals</button>
         <button>Sightings</button>
 
       </div>
+
+      <Species show = {show} onClose = {handleClose}/>
 
     </div>
   )
