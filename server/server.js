@@ -10,10 +10,6 @@ app.use(cors());
 app.use(express.json());
 
 //SPECIES
-app.get("/", (req, res) => {
-    res.json({ message: "Hola, from My template ExpressJS with React-Vite" });
-  });
-
 app.get('/species', async (req, res) => {
     try {
         const {rows : species} = await db.query('SELECT * FROM species');
@@ -176,6 +172,30 @@ app.delete('/sightings/:id', async (req, res) => {
         res.status(400).json({error});
     }
 })
+
+
+//GENERAL INFORMATION 
+app.get('/', async (req, res) => {
+    try {
+        const {rows } = await db.query(`SELECT 
+        s.common_name,
+        s.scientific_name,
+        s.estimated_number,
+        i.nickname,
+        i.scientist_tracking,
+        sg.email_address,
+        sg.location_text,
+        sg.is_healthy
+    FROM species s
+    JOIN individuals i ON s.id = i.species_id
+    JOIN sightings sg ON i.id = sg.individual_id;
+    `);
+        res.send(rows);
+    } catch (error) {
+        console.error("Error fetching species:", error.message);
+        res.status(500).send({ error: "Failed to fetch species." });
+    }
+});
 
 
 
