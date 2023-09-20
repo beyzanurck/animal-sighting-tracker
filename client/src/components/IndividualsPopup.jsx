@@ -39,7 +39,7 @@ export default function individualsPopup( { show, onClose }) {
         <Modal show={show} onHide={onClose} size="lg">
 
             <Modal.Header closeButton>
-            <Modal.Title>Species Table</Modal.Title>
+            <Modal.Title>Individuals Table</Modal.Title>
             </Modal.Header>
 
             <Modal.Body>
