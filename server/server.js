@@ -134,6 +134,50 @@ app.delete('/individuals/:id', async (req, res) => {
 })
 
 
+//SIGHTINGS
+app.get('/sightings', async (req, res) => {
+    try {
+        const {rows : sightings} = await db.query('SELECT * FROM sightings');
+        res.send(sightings);
+    } catch (error) {
+        console.error("Error fetching species:", error.message);
+        res.status(500).send({ error: "Failed to fetch species." });
+    }
+});
+
+app.post('/sightings', async (req, res) => {
+    try {
+        
+        const {sighting_timestamp, individual_id, location_text, is_healthy, email_address, created_at } = req.body;
+
+        const newSighting =  await db.query("INSERT INTO sightings (sighting_timestamp, individual_id, location_text, is_healthy, email_address, created_at) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *", [sighting_timestamp, individual_id, location_text, is_healthy, email_address, created_at]);
+
+        res.json(newSighting.rows[0])
+        
+    } catch (error) {
+        console.error(error.message)
+        res.status(400).json({error});
+
+    }
+})
+
+
+app.delete('/sightings/:id', async (req, res) => {
+    try {
+
+        const {id} = req.params;
+        const deleteSighting = await db.query("DELETE FROM sightings WHERE id = $1", [id]
+        );
+
+        res.json("The sighting was deleted!");
+
+    } catch (error) {
+        console.error(error.message)
+        res.status(400).json({error});
+    }
+})
+
+
 
 //TEST FOR CONNECTION OF DB
 app.get('/testdb', async (req, res) => {
