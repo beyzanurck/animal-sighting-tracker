@@ -2,15 +2,15 @@ import React from 'react'
 
 export default function WildlifeObservations( { info } ) {
   return (
-    <div className="wildlife-obs">
-      <p> {info.common_name} </p>
-      <p> {info.scientific_name} </p>
-      <p> {info.estimated_number} </p>
-      <p> {info.nickname} </p>
-      <p> {info.scientist_tracking} </p>
-      <p> {info.email_address} </p>
-      <p> {info.location_text} </p>
-      <p> {info.is_healthy ? "Yes" : "No"} </p>
-    </div>
+    <tr>
+        <td>{info.common_name}</td>
+        <td>{info.scientific_name}</td>
+        <td>{info.estimated_number}</td>
+        <td>{info.nickname}</td>
+        <td>{info.scientist_tracking}</td>
+        <td>{info.email_address}</td>
+        <td>{info.location_text}</td>
+        <td>{info.is_healthy ? "Yes" : "No"}</td>
+  </tr>
   )
 }

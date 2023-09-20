@@ -83,15 +83,26 @@ function App() {
 
   return (
     <div className="App">
-      <h1>Hello</h1>
-
-      {
-        observation.length > 0 ? 
-          observation.map((item, index) => (
-            <WildlifeObservations key = {index} info = {item} />
-          )) : ` `
-      }
-
+      <h1>Animal Sighting Tracker</h1>
+      <table className="wildlife-table">
+        <thead>
+          <tr>
+            <th>Common Name</th>
+            <th>Scientific Name</th>
+            <th>Estimated Number</th>
+            <th>Nickname</th>
+            <th>Scientist Tracking</th>
+            <th>Email Address</th>
+            <th>Location</th>
+            <th>Healthy</th>
+          </tr>
+        </thead>
+        <tbody>
+          {observation.length > 0 && observation.map((item, index) => (
+            <WildlifeObservations key={index} info={item} />
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }
