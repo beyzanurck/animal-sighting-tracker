@@ -3,33 +3,58 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect, useState } from 'react';
 import WildlifeObservations from './components/WildlifeObservations';
 import Species from './components/Species';
+import IndividualsPopup from './components/IndividualsPopup';
 
 
 function App() {
 
-  const [individuals, setIndividuals] = useState([]);
   const [sightings, setSightings] = useState([]);
   const [observation, setObservation] = useState([]);
 
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  // const [show, setShow] = useState(false);
+  const [show, setShow] = useState({
+    "species" : false,
+    "individuals" : false,
+    "sightings" : false
+  });
 
-  async function getIndividuals() {
-    try {
-      const response = await fetch('http://localhost:3000/individuals');
-
-      if(!response.ok) {
-        throw new Error('response was not ok');
-      }
-
-      const allIndividuals = await response.json();
-      setIndividuals(allIndividuals)
-
-    } catch (error) {
-      console.log(error.message);
+  const handleClose = (type) => {
+    switch(type) {
+      case 'species':
+        setShow({...show, species: false})
+        break;
+      case 'individuals':
+        setShow({...show, individuals: false})
+        break;
+      case 'sightings':
+        setShow({...show, sightings: false})
+        break;
+      default:
+        setShow({
+          species: false,
+          individuals: false,
+          sightings: false
+        });
+    }
+  };
+  
+  const handleShow = (type) => {
+    switch(type) {
+      case 'species':
+        setShow({...show, "species":true})
+        break;
+      case 'individuals':
+        setShow({...show, "individuals":true})
+        break;
+      case 'sightings':
+        setShow({...show, "sightings":true})
+        break;
+      default:
+        // default case if needed
     }
   }
+
+  
 
   async function getSightings() {
     try {
@@ -64,7 +89,6 @@ function App() {
   }
 
   useEffect(() => {
-    getIndividuals();
     getSightings();
     ObserveWildlife();
   }, []);
@@ -99,13 +123,14 @@ function App() {
 
       <div className='buttons'>
 
-        <button onClick={handleShow}>Species</button>
-        <button>Individuals</button>
-        <button>Sightings</button>
+        <button onClick={() => handleShow('species')}>Species</button>
+        <button onClick={() => handleShow('individuals')}>Individuals</button>
+        <button onClick={() => handleShow('sightings')}>Sightings</button>
 
       </div>
 
-      <Species show = {show} onClose = {handleClose}/>
+      <Species show = {show.species} onClose={() => handleClose('species')}/>
+      <IndividualsPopup show={show.individuals} onClose={() => handleClose('individuals')}/>
 
     </div>
   )
