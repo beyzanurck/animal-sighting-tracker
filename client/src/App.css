@@ -3,6 +3,10 @@
   margin: 5px;
 }
 
-
+.wildlife-obs {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
 
 

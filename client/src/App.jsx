@@ -1,5 +1,6 @@
 import './App.css'
 import { useEffect, useState } from 'react';
+import WildlifeObservations from './components/WildlifeObservations';
 
 
 function App() {
@@ -7,6 +8,7 @@ function App() {
   const [species, setSpecies] = useState([]);
   const [individuals, setIndividuals] = useState([]);
   const [sightings, setSightings] = useState([]);
+  const [observation, setObservation] = useState([]);
 
   async function getSpecies() {
     try {
@@ -56,19 +58,39 @@ function App() {
     }
   }
 
+  async function ObserveWildlife() {
+    try {
+      const response = await fetch('http://localhost:3000');
+
+      if(!response.ok) {
+        throw new Error('response was not ok');
+      }
+
+      const observation = await response.json();
+      setObservation(observation)
+
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+
   useEffect(() => {
     getSpecies();
     getIndividuals();
     getSightings();
+    ObserveWildlife();
   }, []);
 
   return (
     <div className="App">
       <h1>Hello</h1>
 
-      <p> {species.length > 0 ? species[0]["common_name"] : ` `} </p>
-      <p> {individuals.length > 0 ? individuals[0]["nickname"] : ` `} </p>
-      <p> {sightings.length > 0 ? sightings[0]["created_at"] : ` `} </p>
+      {
+        observation.length > 0 ? 
+          observation.map((item, index) => (
+            <WildlifeObservations key = {index} info = {item} />
+          )) : ` `
+      }
 
     </div>
   )
