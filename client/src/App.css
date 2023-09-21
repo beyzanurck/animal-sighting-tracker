@@ -55,3 +55,16 @@
 .buttons button:hover {
   background-color: #0056b3; 
 }
+
+.form-new-individual {
+  display: flex;
+  flex-direction: column;
+  margin: 15%;
+}
+
+.form-new-individual input,
+.form-new-individual select,
+.form-new-individual [role="datepicker"] {  /* You may need to inspect DatePicker element to find the right selector */
+  margin: 2%;
+}
+

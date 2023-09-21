@@ -51,7 +51,7 @@ export default function FormNewIndividual() {
 
     return (
         <div>
-            <form>
+            <form className='form-new-individual'>
 
                 <input placeholder='nickname'/>
                 <input placeholder='scientist name'/>
