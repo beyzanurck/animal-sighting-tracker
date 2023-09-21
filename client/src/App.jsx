@@ -5,7 +5,7 @@ import WildlifeObservations from './components/WildlifeObservations';
 import Species from './components/Species';
 import IndividualsPopup from './components/IndividualsPopup';
 import SightingsPopup from './components/SightingsPopup';
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 
 function App() {
@@ -118,8 +118,10 @@ function App() {
 
           <div className='buttons'>
 
-            <button>Species</button>
             <button>Individuals</button>
+
+            <Link to="/new-individual" >Individuals</Link>
+            
             <button>Sightings</button>
 
           </div>
