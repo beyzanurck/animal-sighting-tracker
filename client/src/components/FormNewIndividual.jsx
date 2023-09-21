@@ -13,6 +13,7 @@ export default function FormNewIndividual() {
     });
 
     const [dicSpecies, setDicSpecies] = useState({});
+    const [selectedValue, setSelectedValue] = useState('');
     
     async function getSpecies() {
         try {
@@ -43,10 +44,11 @@ export default function FormNewIndividual() {
 
     function handleSelectChange (event) {
 
-        const id = parseInt(event.target.value, 10);
-        console.log(id)
-        setNewIndividual((preValue) => ({ ...preValue, species_id: id }))
-        console.log(newIndividual.species_id)
+        // const id = parseInt(event.target.value, 10);
+        // console.log(id)
+        // setNewIndividual((preValue) => ({ ...preValue, species_id: id }))
+        // console.log(newIndividual.species_id)
+        setSelectedValue(event.target.value);
     }
 
     return (
@@ -56,12 +58,13 @@ export default function FormNewIndividual() {
                 <input placeholder='nickname'/>
                 <input placeholder='scientist name'/>
 
-                <select value={""} onChange={handleSelectChange} >
+                <select value={selectedValue} onChange={handleSelectChange} >
+                <option value="" disabled>select a species</option>
                 {
-                Object.keys(dicSpecies).length > 0 ?
-                Object.entries(dicSpecies).map(([key, value]) => (
-                    <option key={value} value={value}>{key}</option>
-                )) : ` `
+                    Object.keys(dicSpecies).length > 0 ?
+                    Object.entries(dicSpecies).map(([key, value]) => (
+                        <option key={value} value={value}>{key}</option>
+                    )) : ` `
                 }
                 </select>
 
@@ -71,6 +74,9 @@ export default function FormNewIndividual() {
                 showTimeSelect
                 dateFormat="Pp"
                 />
+
+                <p>{selectedValue && <p>You have selected: {selectedValue}</p>}
+</p>
 
             </form>
         </div>
