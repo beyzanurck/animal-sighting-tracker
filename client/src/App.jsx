@@ -120,9 +120,10 @@ function App() {
 
             <button>Individuals</button>
 
-            <Link to="/new-individual" >Individuals</Link>
+            <Link to="/new-individual" >Individual</Link>
             
-            <button>Sightings</button>
+            <Link to="/new-sighting" >Sighting</Link>
+
 
           </div>
       </div>

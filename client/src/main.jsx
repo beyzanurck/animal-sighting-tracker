@@ -9,6 +9,7 @@ import {
 import './index.css'
 import Root from "./routes/root";
 import FormNewIndividual from './components/FormNewIndividual';
+import FormNewSighting from './components/FormNewSighting';
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,10 @@ const router = createBrowserRouter([
   {
     path: "/new-individual",
     element: <FormNewIndividual />,
+  },
+  {
+    path: "/new-sighting",
+    element: <FormNewSighting />,
   }
 ]);
 

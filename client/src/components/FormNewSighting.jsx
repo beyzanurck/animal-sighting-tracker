@@ -15,10 +15,14 @@ export default function FormNewSighting() {
     });
 
     const [dicSighting, setDicSighting] = useState({});
+
     const [selectedValue, setSelectedValue] = useState({
         "individual_id" : "",
-        "is_healthy" : "Yes"
+        "is_healthy" : ""
     });
+
+    const [message, setMessage] = useState("");
+
     
     async function getIndividuals() {
         try {
@@ -31,8 +35,8 @@ export default function FormNewSighting() {
     
             const allIndividuals = await response.json();
 
-            const speciesObj = allIndividuals.reduce((accumulator, species) => {
-                accumulator[species.common_name] = species.id;
+            const speciesObj = allIndividuals.reduce((accumulator, individual) => {
+                accumulator[individual.nickname] = individual.id;
             return accumulator;
 
         }, {});
@@ -49,12 +53,17 @@ export default function FormNewSighting() {
         getIndividuals();
     }, []);
 
+
     function handleSelectChange (event) {
 
-        const newIndividualId = event.target.value;
-        setSelectedValue(newIndividualId);
-        setNewSighting((preValue) => ({ ...preValue, individual_id: newIndividualId }));
+        const { name, value } = event.target;
 
+        setSelectedValue(prevState => ({
+            ...prevState,
+            [name]: value
+        }));
+
+        setNewSighting((preValue) => ({ ...preValue, [name]: value }));
     }
 
     function handleChange(event){
@@ -62,9 +71,12 @@ export default function FormNewSighting() {
         setNewSighting((preValue) => ({ ...preValue, [name]: value }));
     }
 
+
     function handleSubmit(e) {
         e.preventDefault();
         addNewSighting(newSighting);
+        // console.log(newSighting)
+        setMessage("A new sighting has been added successfully!")
     }
 
     const addNewSighting = async (newSighting) => {
@@ -92,54 +104,67 @@ export default function FormNewSighting() {
 
                 <h2>Add New Sighting</h2>
 
-                <input 
-                    placeholder='sighting time'
-                    name = 'sighting_timestamp'
-                    value={newSighting.sighting_timestamp}
-                    onChange={handleChange}
-                />
-                <input 
-                    placeholder='location'
-                    name = 'location_text'
-                    value={newSighting.location_text}
-                    onChange={handleChange}
-                />
+                <label for=""> Sighting Time: 
+                    <DatePicker
+                        selected={newSighting.sighting_timestamp}
+                        onChange={(date) => setNewSighting({ ...newSighting, sighting_timestamp: date })}
+                        showTimeSelect
+                        dateFormat="Pp"
+                    />
+                </label>
 
-                <input 
-                    placeholder='email adress'
-                    name = 'email_address'
-                    value={newSighting.email_address}
-                    onChange={handleChange}
-                />
+                <label> Location: 
+                    <input 
+                        placeholder='location'
+                        name = 'location_text'
+                        value={newSighting.location_text}
+                        onChange={handleChange}
+                    />
+                </label>
 
+               <label> Email Adress: 
+                    <input 
+                        placeholder='email adress'
+                        name = 'email_address'
+                        value={newSighting.email_address}
+                        onChange={handleChange}
+                    />
+               </label>
 
-                <select value={selectedValue} onChange={handleSelectChange} >
-                    <option key={1} value={true}>{"Yes"}</option>
-                    <option key={2} value={false}>{"No"}</option>
-                </select>
+               <label> Is Healthy:
+                    <select name="is_healthy" value={selectedValue.is_healthy} onChange={handleSelectChange} >
+                            <option key={1} value={true}>{"Yes"}</option>
+                            <option key={2} value={false}>{"No"}</option>
+                    </select>
+               </label>
 
+               <label> Individual Nickname:
+                    <select name="individual_id" value={selectedValue.individual_id} onChange={handleSelectChange} >
+                        <option value="" disabled>select a species</option>
+                        {
+                            Object.keys(dicSighting).length > 0 ?
+                            Object.entries(dicSighting).map(([key, value]) => (
+                                <option key={value} value={value}>{key}</option>
+                            )) : ` `
+                        }
+                    </select>
+               </label>
 
-                <select value={selectedValue} onChange={handleSelectChange} >
-                <option value="" disabled>select a species</option>
-                {
-                    Object.keys(dicSighting).length > 0 ?
-                    Object.entries(dicSighting).map(([key, value]) => (
-                        <option key={value} value={value}>{key}</option>
-                    )) : ` `
-                }
-                </select>
-
-                <DatePicker
-                selected={newSighting.created_at}
-                onChange={(date) => setNewSighting({ ...newSighting, created_at: date })}
-                showTimeSelect
-                dateFormat="Pp"
-                />
+               <label> Creation Time:
+                    <DatePicker
+                        selected={newSighting.created_at}
+                        onChange={(date) => setNewSighting({ ...newSighting, created_at: date })}
+                        showTimeSelect
+                        dateFormat="Pp"
+                    />
+               </label>
 
                 <button type='submit'>Add</button>
-                {/* test for PR!!! */}
+
+                <p>{message && message}</p>
 
             </form>
+
         </div>
     )
 }

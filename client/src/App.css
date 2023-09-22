@@ -56,7 +56,7 @@
   background-color: #0056b3; 
 }
 
-.form-new-individual {
+.form-new-individual, .form-new-sighting {
   display: flex;
   flex-direction: column;
   margin: 15%;
@@ -64,7 +64,17 @@
 
 .form-new-individual input,
 .form-new-individual select,
-.form-new-individual [role="datepicker"] {  /* You may need to inspect DatePicker element to find the right selector */
+.form-new-individual [role="datepicker"] {  
   margin: 2%;
+}
+
+.form-new-sighting input,
+.form-new-sighting select,
+.form-new-sighting [role="datepicker"] {  
+  margin: 2%;
+}
+.form-new-sighting button {
+  width: 7%;
+  margin-left: 40%;
 }
 
