@@ -116,13 +116,13 @@ function App() {
 
           <h4> add new </h4>
 
-          <div className='buttons'>
+          <div className='links'>
 
-            <button>Individuals</button>
-
-            <Link to="/new-individual" >Individual</Link>
+            <Link to="/new-species">Species</Link>
             
-            <Link to="/new-sighting" >Sighting</Link>
+            <Link to="/new-individual">Individual</Link>
+            
+            <Link to="/new-sighting">Sighting</Link>
 
 
           </div>

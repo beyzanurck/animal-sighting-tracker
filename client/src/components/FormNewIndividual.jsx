@@ -28,7 +28,7 @@ export default function FormNewIndividual() {
 
             const speciesObj = allSpecies.reduce((accumulator, species) => {
                 accumulator[species.common_name] = species.id;
-            return accumulator;
+            return accumulator; 
 
         }, {});
 
@@ -111,10 +111,10 @@ export default function FormNewIndividual() {
                 </select>
 
                 <DatePicker
-                selected={newIndividual.created_at}
-                onChange={(date) => setNewIndividual({ ...newIndividual, created_at: date })}
-                showTimeSelect
-                dateFormat="Pp"
+                    selected={newIndividual.created_at}
+                    onChange={(date) => setNewIndividual({ ...newIndividual, created_at: date })}
+                    showTimeSelect
+                    dateFormat="Pp"
                 />
 
                 <button type='submit'>Add</button>

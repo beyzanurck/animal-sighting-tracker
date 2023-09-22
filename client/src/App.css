@@ -67,6 +67,11 @@
 .form-new-individual [role="datepicker"] {  
   margin: 2%;
 }
+.links {  
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
 
 .form-new-sighting input,
 .form-new-sighting select,
