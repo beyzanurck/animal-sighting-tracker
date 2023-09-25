@@ -72,6 +72,9 @@
   flex-direction: row;
   gap: 20px;
 }
+.form-new-individual button {
+  width: 10%;
+}
 
 .form-new-sighting input,
 .form-new-sighting select,
