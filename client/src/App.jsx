@@ -18,36 +18,16 @@ function App() {
     "sightings" : false
   });
 
-  const handleClose = (type) => {
+  const handleVisibility = (type, boolean) => {
     switch(type) {
       case 'species':
-        setShow({...show, species: false})
+        setShow({...show, "species":boolean})
         break;
       case 'individuals':
-        setShow({...show, individuals: false})
+        setShow({...show, "individuals":boolean})
         break;
       case 'sightings':
-        setShow({...show, sightings: false})
-        break;
-      default:
-        setShow({
-          species: false,
-          individuals: false,
-          sightings: false
-        });
-    }
-  };
-
-  const handleShow = (type) => {
-    switch(type) {
-      case 'species':
-        setShow({...show, "species":true})
-        break;
-      case 'individuals':
-        setShow({...show, "individuals":true})
-        break;
-      case 'sightings':
-        setShow({...show, "sightings":true})
+        setShow({...show, "sightings":boolean})
         break;
     }
   }
@@ -104,15 +84,15 @@ function App() {
 
           <div className='buttons'>
 
-            <button onClick={() => handleShow('species')}>Species</button>
-            <button onClick={() => handleShow('individuals')}>Individuals</button>
-            <button onClick={() => handleShow('sightings')}>Sightings</button>
+            <button onClick={() => handleVisibility('species', true)}>Species</button>
+            <button onClick={() => handleVisibility('individuals', true)}>Individuals</button>
+            <button onClick={() => handleVisibility('sightings', true)}>Sightings</button>
 
           </div>
 
-          <Species show = {show.species} onClose={() => handleClose('species')}/>
-          <IndividualsPopup show={show.individuals} onClose={() => handleClose('individuals')}/>
-          <SightingsPopup show={show.sightings} onClose={() => handleClose('sightings')}/>
+          <Species show = {show.species} onClose={() => handleVisibility('species', false)}/>
+          <IndividualsPopup show={show.individuals} onClose={() => handleVisibility('individuals', false)}/>
+          <SightingsPopup show={show.sightings} onClose={() => handleVisibility('sightings', false)}/>
 
           <h4> add new </h4>
 
