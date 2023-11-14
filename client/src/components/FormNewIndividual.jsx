@@ -92,12 +92,18 @@ export default function FormNewIndividual() {
                     name = 'nickname'
                     value={newIndividual.nickname}
                     onChange={handleChange}
+                    required
+                    minLength="5"
+                    maxLength="20"
                 />
                 <input 
                     placeholder='scientist name'
                     name = 'scientist_tracking'
                     value={newIndividual.scientist_tracking}
                     onChange={handleChange}
+                    required
+                    minLength="5"
+                    maxLength="20"
                 />
 
                 <select value={selectedValue} onChange={handleSelectChange} >
